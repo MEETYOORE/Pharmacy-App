@@ -15,6 +15,7 @@ import android.widget.Toast;
 import android.content.Context;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.pharmacy_app.MainActivity;
 import com.example.pharmacy_app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -106,6 +107,8 @@ public class LoginActivity extends AppCompatActivity
                             //  If successful login then stop showing progress bar
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(LoginActivity.this,"Login Successful!", Toast.LENGTH_SHORT).show();
+
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         }
                         else
                         {
