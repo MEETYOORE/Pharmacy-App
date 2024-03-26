@@ -18,9 +18,11 @@
             android:id="@+id/pop_img"
             android:layout_width="280dp"
             android:layout_height="190dp"
-            app:riv_corner_radius="14dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/offers3"/>
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@mipmap/offers3"
+            app:riv_corner_radius="14dp" />
+
 
         <TextView
             android:id="@+id/pop_name"
@@ -76,7 +78,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/category"
+            android:id="@+id/pop_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Category" />

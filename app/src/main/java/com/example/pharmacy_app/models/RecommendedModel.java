@@ -1,27 +1,25 @@
 package com.example.pharmacy_app.models;
 
-public class PopularModel
+public class RecommendedModel
 {
     String name;
     String description;
     String rating;
-    String discount;
-    String type;
     String img_url;
-    String category;
-    public PopularModel()
+    int price;
+
+    public RecommendedModel()
     {
 
     }
 
-    public PopularModel(String name, String description, String rating, String discount, String type, String img_url, String category) {
+    public RecommendedModel(String name, String description, String rating, String img_url, int price)
+    {
         this.name = name;
         this.description = description;
         this.rating = rating;
-        this.discount = discount;
-        this.type = type;
         this.img_url = img_url;
-        this.category = category;
+        this.price = price;
     }
 
     public String getName() {
@@ -48,22 +46,6 @@ public class PopularModel
         this.rating = rating;
     }
 
-    public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getImg_url() {
         return img_url;
     }
@@ -71,11 +53,12 @@ public class PopularModel
     public void setImg_url(String img_url) {
         this.img_url = img_url;
     }
-    public String getCategory() {
-        return category;
+
+    public int getPrice() {
+        return price;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.pharmacy_app.R;
 import com.example.pharmacy_app.models.PopularModel;
 
+import java.util.Collections;
 import java.util.List;
 
 public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHolder>
@@ -27,7 +28,6 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
         this.context = context;
         this.popularModelList = popularModelList;
     }
-
 
     @NonNull
     @Override
@@ -45,6 +45,7 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
         holder.rating.setText(popularModelList.get(position).getRating());
         holder.description.setText(popularModelList.get(position).getDescription());
         holder.discount.setText(popularModelList.get(position).getDiscount());
+        holder.category.setText(popularModelList.get(position).getCategory());
     }
 
     @Override
@@ -56,7 +57,7 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         ImageView img_url;
-        TextView name, description, rating, discount;
+        TextView name, description, rating, discount, category;
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
@@ -66,6 +67,7 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
             description = itemView.findViewById(R.id.pop_des);
             discount = itemView.findViewById(R.id.pop_discount);
             rating = itemView.findViewById(R.id.pop_rating);
+            category = itemView.findViewById(R.id.pop_category);
         }
     }
 }

@@ -22,6 +22,7 @@
 
     <EditText
         android:id="@+id/email_login"
+        android:maxLines="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -31,6 +32,8 @@
         android:elevation="13dp"
         android:hint="Email-Id"
         android:padding="13dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +41,7 @@
 
     <EditText
         android:id="@+id/password_login"
+        android:maxLines="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -48,11 +52,12 @@
         android:hint="Password"
         android:inputType="text"
         android:padding="13dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_login"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/email_login" />
 
     <Button
         android:id="@+id/login_btn"
@@ -71,6 +76,7 @@
 
     <TextView
         android:id="@+id/textView4"
+        android:textColor="@color/grey_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"

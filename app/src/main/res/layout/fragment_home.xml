@@ -14,17 +14,18 @@
         android:orientation="vertical">
 
         <EditText
-            android:elevation="3dp"
             android:id="@+id/search_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:drawableStart="@android:drawable/ic_search_category_default"
             android:drawablePadding="5dp"
+            android:elevation="3dp"
             android:hint="Search for products"
-            android:padding="13dp"
             android:maxLines="1"
-            />
+            android:padding="13dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_500" />
 
 
         <LinearLayout
@@ -36,6 +37,7 @@
             android:weightSum="2">
 
             <TextView
+                android:textColor="@color/grey_500"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -75,6 +77,7 @@
             android:weightSum="2">
 
             <TextView
+                android:textColor="@color/grey_500"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -113,6 +116,7 @@
             android:weightSum="2">
 
             <TextView
+                android:textColor="@color/grey_500"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -137,10 +141,11 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommended_rec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:id="@+id/recommended_recommendations"/>
+            />
 
 
     </LinearLayout>

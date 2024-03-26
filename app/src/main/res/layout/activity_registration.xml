@@ -19,6 +19,7 @@
 
     <EditText
         android:id="@+id/name"
+        android:maxLines="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -28,14 +29,16 @@
         android:elevation="13dp"
         android:hint="Name"
         android:padding="13dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_img"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/reg_img" />
 
     <EditText
         android:id="@+id/email_reg"
+        android:maxLines="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -45,6 +48,8 @@
         android:elevation="13dp"
         android:hint="Email-Id"
         android:padding="13dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +57,7 @@
 
     <EditText
         android:id="@+id/password_reg"
+        android:maxLines="1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -62,11 +68,12 @@
         android:hint="Password"
         android:inputType="text"
         android:padding="13dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_reg"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/email_reg" />
 
     <Button
         android:id="@+id/sign_up_btn"
@@ -85,6 +92,7 @@
 
     <TextView
         android:id="@+id/textView4"
+        android:textColor="@color/grey_500"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
