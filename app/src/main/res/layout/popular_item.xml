@@ -34,11 +34,10 @@
 
         <TextView
             android:id="@+id/pop_des"
-            android:layout_width="183dp"
+            android:layout_width="363dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:singleLine="true"
             android:text="description" />
 
         <LinearLayout
@@ -75,6 +74,12 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Category" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
