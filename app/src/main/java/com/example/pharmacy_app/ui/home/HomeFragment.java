@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,10 @@ import java.util.List;
 
 public class HomeFragment extends Fragment
 {
+    ScrollView scrollView;
+    ProgressBar progressBar;
+
+
     // firestore db acess
     FirebaseFirestore db;
     RecyclerView popularRec, homeCatRec, recommendedRec;
@@ -59,7 +65,12 @@ public class HomeFragment extends Fragment
 
         popularRec = root.findViewById(R.id.pop_rec);    // popular recommendations
         homeCatRec = root.findViewById(R.id.explore_rec);    // explore categories
-        recommendedRec = root.findViewById(R.id.recommended_rec);   // // recommended recommendations
+        recommendedRec = root.findViewById(R.id.recommended_rec);   // recommended recommendations
+        scrollView = root.findViewById(R.id.scroll_view);   // scrollbar
+        progressBar = root.findViewById(R.id.progressbar);   // scrollbar
+
+        progressBar.setVisibility(View.VISIBLE);    // progress bar show
+        scrollView.setVisibility(View.GONE);    // initally scrollbar hidden
 
        // popular items show
         {
@@ -84,6 +95,8 @@ public class HomeFragment extends Fragment
 //                                    PopularModel popularModel = document.toObject(PopularModel.class);
 //                                    popularModelList.add(popularModel);
 //                                    popularAdapters.notifyDataSetChanged();
+//                                    progressBar.setVisibility(View.VISIBLE);
+
 //                                    //Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
 //                                }
                                 for (QueryDocumentSnapshot document : task.getResult())
@@ -97,6 +110,10 @@ public class HomeFragment extends Fragment
 
                                 // Update the RecyclerView adapter
                                 popularAdapters.notifyDataSetChanged();
+
+                                progressBar.setVisibility(View.GONE);    // progress bar hide once db connected
+                                scrollView.setVisibility(View.VISIBLE);    //  scrollbar show once db connect
+
                             }
                             else
                             {
