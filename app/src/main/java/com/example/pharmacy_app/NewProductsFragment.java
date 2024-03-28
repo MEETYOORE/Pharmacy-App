@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 
 public class NewProductsFragment extends Fragment
 {
-    public NewProductsFragment() {
+    public NewProductsFragment()
+    {
         // Required empty public constructor
     }
 
