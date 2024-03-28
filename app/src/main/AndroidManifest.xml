@@ -16,10 +16,10 @@
             android:name=".activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegistrationActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Pharmacy_app.NoActionBar">
