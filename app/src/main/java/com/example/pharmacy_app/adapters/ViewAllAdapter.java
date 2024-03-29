@@ -1,6 +1,8 @@
 package com.example.pharmacy_app.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.provider.Telephony;
@@ -19,6 +21,7 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.example.pharmacy_app.R;
+import com.example.pharmacy_app.activities.DetailedActivity;
 import com.example.pharmacy_app.activities.ViewAllActivity;
 import com.example.pharmacy_app.models.ViewAllModel;
 import com.google.firebase.firestore.core.Target;
@@ -46,7 +49,7 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewAllAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewAllAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ViewAllModel currentItem = list.get(position);
 
         Glide.with(context).load(list.get(position).getImg_url()).into(holder.imageView);
@@ -55,7 +58,17 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
         holder.name.setText(list.get(position).getName());
         holder.description.setText(list.get(position).getDescription());
         holder.rating.setText(list.get(position).getRating());
-        holder.price.setText(list.get(position).getPrice());
+        holder.price.setText(list.get(position).getPrice() + "");   // as it is float
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(context, DetailedActivity.class);
+                intent.putExtra("detail", list.get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
 

@@ -22,9 +22,24 @@
     <color name="cyan_700">#009999</color>
     <color name="cyan_800">#006666</color>
     <color name="cyan_900">#003333</color>
-    <color name="yellow_200">#FFF59D</color>
-    <color name="yellow_500">#FFEB3B</color>
-    <color name="yellow_700">#FBC02D</color>
+    <color name="yellow_100">#FFF9C4</color>
+    <color name="yellow_150">#FFF59D</color> <!-- Original color -->
+    <color name="yellow_200">#FFF176</color>
+    <color name="yellow_250">#FFEE58</color>
+    <color name="yellow_300">#FFEB3B</color> <!-- Original color -->
+    <color name="yellow_350">#FDD835</color>
+    <color name="yellow_400">#FBC02D</color> <!-- Original color -->
+    <color name="yellow_450">#FFAB00</color>
+    <color name="yellow_500">#FFA300</color>
+    <color name="yellow_550">#FF8F00</color>
+    <color name="yellow_600">#FF6F00</color>
+    <color name="yellow_650">#FF6F00</color>
+    <color name="yellow_700">#FF6F00</color>
+    <color name="yellow_750">#FF6F00</color>
+    <color name="yellow_800">#FF6F00</color>
+    <color name="yellow_850">#FF6F00</color>
+    <color name="yellow_900">#FF6F00</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

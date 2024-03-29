@@ -1,5 +1,6 @@
 package com.example.pharmacy_app.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position)
     {
         Glide.with(context).load(popularModelList.get(position).getImg_url()).into(holder.img_url);
 
@@ -51,28 +52,28 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
         holder.type.setText(popularModelList.get(position).getType());
 
         // on click go to the product page
-//        holder.itemView.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                Intent intent = new Intent(context, ViewAllActivity.class);
-//                intent.putExtra("type", popularModelList.get(position).getType());
-//                context.startActivity(intent);
-//            }
-//        });
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                Log.d("ViewHolder", "Item clicked at position: " + position);
-                String itemType = popularModelList.get(position).getType();
-                Log.d("ViewHolder", "Item type: " + itemType);
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(context, ViewAllActivity.class);
-                intent.putExtra("type", itemType);
+                intent.putExtra("type", popularModelList.get(position).getType());
                 context.startActivity(intent);
             }
         });
+
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("ViewHolder", "Item clicked at position: " + position);
+//                String itemType = popularModelList.get(position).getType();
+//                Log.d("ViewHolder", "Item type: " + itemType);
+//                Intent intent = new Intent(context, ViewAllActivity.class);
+//                intent.putExtra("type", itemType);
+//                context.startActivity(intent);
+//            }
+//        });
 
     }
 

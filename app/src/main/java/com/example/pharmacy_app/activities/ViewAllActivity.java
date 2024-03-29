@@ -43,7 +43,7 @@ public class ViewAllActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // get the typr using key 'type' from popular model
+        // get the type using key 'type' from popular model
         String type = getIntent().getStringExtra("type");
         recyclerView = findViewById(R.id.view_all_rec);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -65,7 +65,8 @@ public class ViewAllActivity extends AppCompatActivity
 
                     if (task.isSuccessful())
                     {
-                        for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
+                        for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments())
+                        {
                             ViewAllModel viewAllModel = documentSnapshot.toObject(ViewAllModel.class);
                             viewAllModelList.add(viewAllModel);
                             viewAllAdapter.notifyDataSetChanged();

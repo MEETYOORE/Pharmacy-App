@@ -1,19 +1,21 @@
 package com.example.pharmacy_app.models;
 
-public class ViewAllModel
+import java.io.Serializable;
+
+public class ViewAllModel implements Serializable
 {
     String name;
     String description;
     String rating;
     String type;
     String img_url;
-    String price;
+    float price;
 
     public ViewAllModel()
     {
 
     }
-    public ViewAllModel(String name, String description, String rating, String type, String img_url, String price)
+    public ViewAllModel(String name, String description, String rating, String type, String img_url, float price)
     {
         this.name = name;
         this.description = description;
@@ -72,12 +74,12 @@ public class ViewAllModel
     }
 
 
-    public String getPrice()
+    public float getPrice()
     {
         return price;
     }
 
-    public void setPrice(String price)
+    public void setPrice(float price)
     {
         this.price = price;
     }
