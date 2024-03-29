@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="@color/yellow_200"
     >
 
     <LinearLayout
@@ -78,10 +79,10 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/pop_category"
+            android:id="@+id/pop_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Category" />
+            android:hint="Type" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

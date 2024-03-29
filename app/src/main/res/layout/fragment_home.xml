@@ -36,6 +36,7 @@
                 android:elevation="3dp"
                 android:hint="Search for products"
                 android:maxLines="1"
+                android:singleLine="true"
                 android:padding="13dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_500" />

@@ -1,6 +1,8 @@
 package com.example.pharmacy_app.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.pharmacy_app.R;
+import com.example.pharmacy_app.activities.ViewAllActivity;
 import com.example.pharmacy_app.models.PopularModel;
 
 import java.util.Collections;
@@ -45,7 +48,32 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
         holder.rating.setText(popularModelList.get(position).getRating());
         holder.description.setText(popularModelList.get(position).getDescription());
         holder.discount.setText(popularModelList.get(position).getDiscount());
-        holder.category.setText(popularModelList.get(position).getCategory());
+        holder.type.setText(popularModelList.get(position).getType());
+
+        // on click go to the product page
+//        holder.itemView.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                Intent intent = new Intent(context, ViewAllActivity.class);
+//                intent.putExtra("type", popularModelList.get(position).getType());
+//                context.startActivity(intent);
+//            }
+//        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ViewHolder", "Item clicked at position: " + position);
+                String itemType = popularModelList.get(position).getType();
+                Log.d("ViewHolder", "Item type: " + itemType);
+                Intent intent = new Intent(context, ViewAllActivity.class);
+                intent.putExtra("type", itemType);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -57,7 +85,7 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         ImageView img_url;
-        TextView name, description, rating, discount, category;
+        TextView name, description, rating, discount, type;
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
@@ -67,7 +95,7 @@ public class PopularAdapters extends RecyclerView.Adapter<PopularAdapters.ViewHo
             description = itemView.findViewById(R.id.pop_des);
             discount = itemView.findViewById(R.id.pop_discount);
             rating = itemView.findViewById(R.id.pop_rating);
-            category = itemView.findViewById(R.id.pop_category);
+            type = itemView.findViewById(R.id.pop_type);
         }
     }
 }
