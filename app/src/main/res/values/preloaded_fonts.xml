@@ -2,6 +2,10 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/akaya_telivigala</item>
+        <item>@font/alata</item>
         <item>@font/aldrich</item>
+        <item>@font/alegreya_sc_black_italic</item>
+        <item>@font/allerta_stencil</item>
+        <item>@font/comic_neue_light</item>
     </array>
 </resources>

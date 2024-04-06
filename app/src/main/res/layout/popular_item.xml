@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
             android:text="Popular Products"
+            android:textColor="@color/black"
             android:textSize="19sp"
             android:textStyle="bold"
             />
@@ -41,7 +42,8 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="description" />
+            android:text="description"
+            android:textColor="@color/grey_700" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:textColor="@color/black"
                 android:text="5.0"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-light"
@@ -82,6 +85,7 @@
             android:id="@+id/pop_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:hint="Type" />
 
     </LinearLayout>

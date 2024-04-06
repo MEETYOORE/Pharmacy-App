@@ -31,15 +31,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:drawableStart="@android:drawable/ic_search_category_default"
+                android:drawableStart="@drawable/ic_baseline_search_24"
                 android:drawablePadding="5dp"
-                android:elevation="3dp"
+                android:elevation="1dp"
                 android:hint="Search for products"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:padding="13dp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/grey_500" />
+                android:textSize="20dp"
+                android:textColorHint="@color/grey_500"
+                android:backgroundTint="@android:color/transparent" />
 
 
             <LinearLayout
