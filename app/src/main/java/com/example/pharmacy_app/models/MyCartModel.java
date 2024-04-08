@@ -10,7 +10,9 @@ public class MyCartModel
 
     float totalPrice;
 
-    public MyCartModel() {
+    public MyCartModel()
+    {
+
     }
 
     public MyCartModel(String productName, String productPrice, String currentDate, String currentTime, String totalQuantity, float totalPrice)
