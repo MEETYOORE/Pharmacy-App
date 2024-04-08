@@ -21,7 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 public class LoginActivity extends AppCompatActivity
 {
 
@@ -37,6 +38,16 @@ public class LoginActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Load the animation
+        Animation slideInAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_left_to_right_animation);
+
+        // Find the root layout of your activity
+        View rootLayout = findViewById(android.R.id.content);
+
+        // Apply the animation to the root layout
+        rootLayout.startAnimation(slideInAnimation);
+
 
         auth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressbar);

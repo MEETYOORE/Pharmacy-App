@@ -3,6 +3,7 @@ package com.example.pharmacy_app;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,8 @@ public class MyCartFragment extends Fragment
     MyCartAdapter cartAdapter;
     List<MyCartModel> cartModelList;
 
+    ConstraintLayout constraint1, constraint2;
+
     public MyCartFragment() {
         // Required empty public constructor
     }
@@ -44,6 +47,9 @@ public class MyCartFragment extends Fragment
     {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_my_cart, container, false);
+
+        constraint1 = root.findViewById(R.id.constraint1);
+        constraint2 = root.findViewById(R.id.constraint2);
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -67,6 +73,17 @@ public class MyCartFragment extends Fragment
                                 cartModelList.add(cartModel);
                                 cartAdapter.notifyDataSetChanged();
                             }
+
+                            if (cartModelList.isEmpty()) {
+                                // Show constraint1 if cart is empty
+                                constraint1.setVisibility(View.VISIBLE);
+                                constraint2.setVisibility(View.GONE);
+                            } else {
+                                // Hide constraint1 if cart is not empty
+                                constraint1.setVisibility(View.GONE);
+                                constraint2.setVisibility(View.VISIBLE);
+                            }
+
                         }
                         else
                         {

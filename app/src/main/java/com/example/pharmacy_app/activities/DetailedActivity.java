@@ -3,8 +3,14 @@ package com.example.pharmacy_app.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +25,7 @@ import com.example.pharmacy_app.R;
 import com.example.pharmacy_app.models.ViewAllModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -175,9 +182,64 @@ public class DetailedActivity extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task)
                     {
-                        Toast.makeText(DetailedActivity.this, "Added To A Cart : " + viewAllModel.getName(), Toast.LENGTH_SHORT).show();
-                        finish();
+//                        Toast.makeText(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName(), Toast.LENGTH_SHORT).show();
+//                        showCustomToast(DetailedActivity.this, R.drawable.ic_baseline_shopping_cart_24, "Added to Cart: " + viewAllModel.getName());
+                        showToast(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName());
+//                        showCustomToast("Added To Cart : " + viewAllModel.getName());
                     }
                 });
     }
+
+    /**
+     * ShowToast
+     */
+
+    public void showToast(Context context, String info) {
+        Toast toast = Toast.makeText(context, Html.fromHtml("<font color='#000000' ><b>" + info + "</b></font>"), Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP, 0, 0);
+        toast.show();
+    }
+
+    private void showCustomToast(String message)
+    {
+        // Inflate the custom layout for the Toast
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast_layout, findViewById(R.id.custom_toast_layout));
+
+        // Set the message text in the TextView
+        TextView text = layout.findViewById(R.id.custom_toast_text);
+        text.setText(message);
+
+//        ImageView imageView = layout.findViewById(R.id.image_cart);
+
+        // Create the custom Toast and set its duration
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_LONG);
+
+        // Set the custom layout as the Toast view
+        toast.setView(layout);
+
+        // Show the custom Toast
+        toast.show();
+    }
+
+//    public static void showCustomToast(Context context, int imageResource, String message) {
+//        // Inflate the custom toast layout
+//        View toastView = LayoutInflater.from(context).inflate(R.layout.custom_toast_layout, null);
+//
+//        // Get references to the ImageView and TextView in the custom layout
+//        ImageView toastImage = toastView.findViewById(R.id.toast_image);
+//        TextView toastText = toastView.findViewById(R.id.toast_text);
+//
+//        // Set the custom image and text for the toast
+//        toastImage.setImageResource(imageResource);
+//        toastText.setText(message);
+//
+//        // Create a Toast object and set the custom view
+//        Toast toast = new Toast(context);
+//        toast.setView(toastView);
+//        toast.setDuration(Toast.LENGTH_SHORT);
+//        toast.show();
+//    }
+
 }

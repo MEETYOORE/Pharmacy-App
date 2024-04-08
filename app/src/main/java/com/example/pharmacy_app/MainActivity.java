@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.database.FirebaseDatabase;
 //import com.google.firebase.database.ValueEventListener;
 
-
 public class MainActivity extends AppCompatActivity
 {
 
@@ -35,6 +36,17 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Load the animation
+        Animation slideInAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_up_animation);
+
+        // Find the root layout of your activity
+        View rootLayout = findViewById(android.R.id.content);
+
+        // Apply the animation to the root layout
+        rootLayout.startAnimation(slideInAnimation);
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

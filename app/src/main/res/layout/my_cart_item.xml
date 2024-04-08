@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Current Date"
+                android:text="Purchase Date"
                 android:textSize="16dp"/>
 
             <TextView
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:text="Current Date"
+                android:text="Purchase Date"
                 android:textSize="16dp"/>
 
 
@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Current Time"
+                android:text="Purchase Time"
                 android:textSize="16dp"/>
 
             <TextView
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:text="Current Time"
+                android:text="Purchase Time"
                 android:textSize="16dp"/>
 
 

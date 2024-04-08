@@ -9,12 +9,13 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/round_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pharmacy_app"
         tools:targetApi="31">
+
         <activity
             android:name=".activities.DetailedActivity"
             android:exported="true"
@@ -23,26 +24,28 @@
             android:name=".activities.ViewAllActivity"
             android:exported="true"
             android:theme="@style/Theme.Pharmacy_app.NoActionBar" />
+
         <activity
             android:name=".activities.LoginActivity"
             android:exported="false" />
 
-        <!-- <activity -->
-        <!-- android:name=".activities.LoginActivity" -->
-        <!-- android:exported="true" -->
-        <!-- android:label="@string/app_name" -->
-        <!-- android:theme="@style/Theme.Pharmacy_app.NoActionBar"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> &lt;!&ndash; Specify MAIN action &ndash;&gt; -->
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> &lt;!&ndash; Specify LAUNCHER category &ndash;&gt; -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
+<!--         <activity-->
+<!--         android:name=".activities.LoginActivity"-->
+<!--         android:exported="true"-->
+<!--         android:label="@string/app_name"-->
+<!--         android:theme="@style/Theme.Pharmacy_app.NoActionBar">-->
+<!--         <intent-filter>-->
+<!--         <action android:name="android.intent.action.MAIN" /> &lt;!&ndash; Specify MAIN action &ndash;&gt;-->
+<!--         <category android:name="android.intent.category.LAUNCHER" /> &lt;!&ndash; Specify LAUNCHER category &ndash;&gt;-->
+<!--         </intent-filter>-->
+<!--         </activity>-->
 
 
         <activity
             android:name=".activities.RegistrationActivity"
             android:exported="true"
             android:theme="@style/Theme.Pharmacy_app.NoActionBar" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
