@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +40,23 @@ public class RegistrationActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_registration_2);
+
+//        // Load the animation
+//        Animation slideInAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right_to_left);
+//
+//        // Find the root layout of your activity
+//        View rootLayout = findViewById(android.R.id.content);
+//
+//        // Apply the animation to the root layout
+//        rootLayout.startAnimation(slideInAnimation);
+
+        // Add this line in onCreate of RegistrationActivity after setContentView
+        startAnimationWithDelay(findViewById(android.R.id.content), R.anim.slide_in_left_to_right_animation, 100);
+
+        // Add this line in onCreate of LoginActivity after setContentView
+        startAnimationWithDelay(findViewById(android.R.id.content), R.anim.slide_in_right_to_left, 100);
+
 
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -120,39 +138,50 @@ public class RegistrationActivity extends AppCompatActivity
         // try creating account
         // try creating account
         auth.createUserWithEmailAndPassword(userEmail, userPassword)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
-                        {
-                            UserModel userModel = new UserModel(userName, userEmail, userPassword);
-                            String id = task.getResult().getUser().getUid();
-                            database.getReference().child("Users").child(id).setValue(userModel);
+        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful())
+                {
+                    UserModel userModel = new UserModel(userName, userEmail, userPassword);
+                    String id = task.getResult().getUser().getUid();
+                    database.getReference().child("Users").child(id).setValue(userModel);
 
-                            //  If successful user creation then stop showing progress
-                            progressBar.setVisibility(View.GONE);
+                    //  If successful user creation then stop showing progress
+                    progressBar.setVisibility(View.GONE);
 
-                            // If successful, show a toast with the success message
-                            Toast.makeText(RegistrationActivity.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+                    // If successful, show a toast with the success message
+                    Toast.makeText(RegistrationActivity.this, "Account Created Successfully!", Toast.LENGTH_SHORT).show();
 
-                            // go to login page
-                            startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+                    // go to login page
+                    startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
 
-                        }
-                        else
-                        {
-                            // If unsuccessful, stop progress bar
-                            progressBar.setVisibility(View.GONE);
+                }
+                else
+                {
+                    // If unsuccessful, stop progress bar
+                    progressBar.setVisibility(View.GONE);
 
-                            // If unsuccessful, retrieve and show the error message in a dialog
-                            String errorMessage = task.getException().getMessage();
-                            AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
-                            builder.setTitle("Failed to Create Account");
-                            builder.setMessage(errorMessage);
-                            builder.setPositiveButton("OK", null);
-                            builder.show();
-                        }
-                    }
-                });
+                    // If unsuccessful, retrieve and show the error message in a dialog
+                    String errorMessage = task.getException().getMessage();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
+                    builder.setTitle("Failed to Create Account");
+                    builder.setMessage(errorMessage);
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
+                }
+            }
+        });
     }
+
+    private void startAnimationWithDelay(final View view, final int animationResId, final long delayMillis) {
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animation animation = AnimationUtils.loadAnimation(view.getContext(), animationResId);
+                view.startAnimation(animation);
+            }
+        }, delayMillis);
+    }
+
 }

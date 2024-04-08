@@ -70,4 +70,15 @@
     <color name="grey_800">#424242</color>
     <color name="grey_900">#212121</color>
 
+    <color name="dark_blue_100">#BBDEFB</color>
+    <color name="dark_blue_200">#64B5F6</color>
+    <color name="dark_blue_300">#2196F3</color>
+    <color name="dark_blue_400">#1E88E5</color>
+    <color name="dark_blue_500">#1976D2</color> <!-- Original color -->
+    <color name="dark_blue_600">#1565C0</color>
+    <color name="dark_blue_700">#0D47A1</color>
+    <color name="dark_blue_800">#0A3E95</color>
+    <color name="dark_blue_900">#07368C</color>
+
+
 </resources>

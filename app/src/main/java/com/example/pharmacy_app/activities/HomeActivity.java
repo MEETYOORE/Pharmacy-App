@@ -33,8 +33,6 @@ public class HomeActivity extends AppCompatActivity
             Toast.makeText(this, "please wait you are already logged in", Toast.LENGTH_SHORT).show();
             finish();
         }
-
-
     }
 
     public void login(View view) {
