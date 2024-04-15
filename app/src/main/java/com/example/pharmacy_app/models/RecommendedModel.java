@@ -6,6 +6,7 @@ public class RecommendedModel
     String description;
     String rating;
     String img_url;
+    String type;
     int price;
 
     public RecommendedModel()
@@ -13,13 +14,14 @@ public class RecommendedModel
 
     }
 
-    public RecommendedModel(String name, String description, String rating, String img_url, int price)
+    public RecommendedModel(String name, String description, String rating, String img_url, int price, String type)
     {
         this.name = name;
         this.description = description;
         this.rating = rating;
         this.img_url = img_url;
         this.price = price;
+        this.type = type;
     }
 
     public String getName() {
@@ -44,6 +46,13 @@ public class RecommendedModel
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String rating) {
+        this.type = type;
     }
 
     public String getImg_url() {

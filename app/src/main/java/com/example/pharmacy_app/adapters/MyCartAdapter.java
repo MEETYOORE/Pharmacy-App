@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pharmacy_app.R;
@@ -19,6 +21,7 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
     Context context;
     List<MyCartModel> cartModelList;
 
+//    float totalPrice = 0;
     public MyCartAdapter(Context context, List<MyCartModel> cartModelList) {
         this.context = context;
         this.cartModelList = cartModelList;
@@ -40,6 +43,12 @@ public class MyCartAdapter extends RecyclerView.Adapter<MyCartAdapter.ViewHolder
         holder.time.setText(cartModelList.get(position).getCurrentTime());
         holder.quantity.setText(cartModelList.get(position).getTotalQuantity());
         holder.totalPrice.setText(String.valueOf(cartModelList.get(position).getTotalPrice())); // as float
+
+        // pass total amount to MyCartFragment
+//        totalPrice = totalPrice + cartModelList.get(position).getTotalPrice();  // add total price of each item in cart
+//        Intent intent = new Intent("MyTotalAmount");
+//        intent.putExtra("totalAmount", (double) totalPrice);
+//        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
     @Override

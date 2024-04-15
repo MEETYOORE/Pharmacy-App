@@ -34,35 +34,50 @@
         android:id="@+id/detailed_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:text="Price : ₹ 100"
         android:textColor="@color/yellow_450"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailed_img" />
 
-    <ImageView
-        android:id="@+id/temp"
-        android:layout_width="100dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/ratingbar_golden"
-        app:layout_constraintEnd_toEndOf="parent"
+<!--    <ImageView-->
+<!--        android:id="@+id/temp"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:src="@drawable/ratingbar_golden"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/detailed_img" />-->
+
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="3.2"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:stepSize="0.1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailed_img" />
 
     <TextView
         android:id="@+id/detailed_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="1dp"
-        android:text="4.8"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="188dp"
+        android:text="3.2"
         android:textSize="20dp"
         android:textStyle="bold|italic"
-        app:layout_constraintEnd_toStartOf="@+id/temp"
+        app:layout_constraintEnd_toEndOf="@+id/rating_bar"
         app:layout_constraintTop_toBottomOf="@+id/detailed_img" />
 
     <TextView

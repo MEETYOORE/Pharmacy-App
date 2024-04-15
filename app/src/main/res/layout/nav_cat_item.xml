@@ -18,7 +18,7 @@
             android:id="@+id/cat_nav_img"
             android:background="@drawable/border"
             android:scaleType="centerInside"
-            android:src="@drawable/fruits"
+            android:src="@drawable/antibiotics"
             android:layout_width="150dp"
             android:layout_height="150dp"/>
 

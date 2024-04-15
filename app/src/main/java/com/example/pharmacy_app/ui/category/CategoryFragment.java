@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,14 +34,20 @@ public class CategoryFragment extends Fragment
     RecyclerView recyclerView;
     List<NavCategoryModel> categoryModelList;
     NavCategoryAdapter navCategoryAdapter;
+    ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View root = inflater.inflate(R.layout.fragment_category, container, false);
         db = FirebaseFirestore.getInstance();
 
-        recyclerView = root.findViewById(R.id.cat_rec);
+        progressBar = root.findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.VISIBLE);
 
+        recyclerView = root.findViewById(R.id.cat_rec);
+        recyclerView.setVisibility(View.GONE);  // intially invisible while firestore loads
+
+        // navcategory items
         {
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
             categoryModelList = new ArrayList<>();
@@ -77,6 +84,8 @@ public class CategoryFragment extends Fragment
                                         NavCategoryModel navCategoryModel = document.toObject(NavCategoryModel.class);
                                         categoryModelList.add(navCategoryModel);
                                         navCategoryAdapter.notifyDataSetChanged();
+                                        progressBar.setVisibility(View.GONE);
+                                        recyclerView.setVisibility(View.VISIBLE);
                                     }
                                     catch (Exception e)
                                     {

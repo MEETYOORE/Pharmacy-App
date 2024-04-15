@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -60,6 +62,7 @@ public class HomeFragment extends Fragment
 
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState)
     {
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         db = FirebaseFirestore.getInstance();
 
@@ -72,7 +75,65 @@ public class HomeFragment extends Fragment
         progressBar.setVisibility(View.VISIBLE);    // progress bar show
         scrollView.setVisibility(View.GONE);    // initally scrollbar hidden
 
-       // popular items show
+//       // popular items show
+//        {
+//            popularRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+//            popularModelList = new ArrayList<>();
+//            popularAdapters = new PopularAdapters(requireContext(), popularModelList);
+//            popularRec.setAdapter(popularAdapters);
+//
+//            // read data firestore
+//            db.collection("PopularProducts")    // give reference id
+//                    .get()
+//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+//                    {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task)
+//                        {
+//
+//                            if (task.isSuccessful())
+//                            {
+////                                for (QueryDocumentSnapshot document : task.getResult())
+////                                {
+////                                    PopularModel popularModel = document.toObject(PopularModel.class);
+////                                    popularModelList.add(popularModel);
+////                                    popularAdapters.notifyDataSetChanged();
+////                                    progressBar.setVisibility(View.VISIBLE);
+//
+////                                    //Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+////                                }
+//                                for (QueryDocumentSnapshot document : task.getResult())
+//                                {
+//                                    PopularModel popularModel = document.toObject(PopularModel.class);
+//                                    popularModelList.add(popularModel);
+//                                }
+//
+//                                // Shuffle the list after populating it
+//                                Collections.shuffle(popularModelList);
+//
+//                                // Update the RecyclerView adapter
+//                                popularAdapters.notifyDataSetChanged();
+//
+//                                progressBar.setVisibility(View.GONE);    // progress bar hide once db connected
+//                                scrollView.setVisibility(View.VISIBLE);    //  scrollbar show once db connect
+//
+//                            }
+//                            else
+//                            {
+//                                if (task.getException() != null)
+//                                {
+//                                    Toast.makeText(getActivity(), "ERROR " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                                }
+//                                else
+//                                {
+//                                    Toast.makeText(getActivity(), "Unknown error occurred", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        }
+//                    });
+//        }
+
+        // popular items show for now random all items
         {
             popularRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
             popularModelList = new ArrayList<>();
@@ -80,7 +141,7 @@ public class HomeFragment extends Fragment
             popularRec.setAdapter(popularAdapters);
 
             // read data firestore
-            db.collection("PopularProducts")    // give reference id
+            db.collection("AllProducts")    // give reference id
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
                     {
@@ -171,7 +232,48 @@ public class HomeFragment extends Fragment
                     });
         }
 
-        // Recommended Recommendations
+//        // Recommended Recommendations
+//        {
+//            recommendedRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+//            recommendedModelList = new ArrayList<>();
+//            recommendedAdapter = new RecommendedAdapter(getActivity(), recommendedModelList);
+//            recommendedRec.setAdapter(recommendedAdapter);
+//
+//            // read data firestore
+//            db.collection("Recommended")    // give reference id
+//            .get()
+//            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+//            {
+//                @Override
+//                public void onComplete(@NonNull Task<QuerySnapshot> task)
+//                {
+//
+//                    if (task.isSuccessful())
+//                    {
+//                        for (QueryDocumentSnapshot document : task.getResult())
+//                        {
+//                            RecommendedModel recommendedModel = document.toObject(RecommendedModel.class);
+//                            recommendedModelList.add(recommendedModel);
+//                            recommendedAdapter.notifyDataSetChanged();
+//                            //Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                    else
+//                    {
+//                        if (task.getException() != null)
+//                        {
+//                            Toast.makeText(getActivity(), "ERROR " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                        else
+//                        {
+//                            Toast.makeText(getActivity(), "Unknown error occurred", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }
+//            });
+//        }
+
+        // Recommended Recommendations only for demo
         {
             recommendedRec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
             recommendedModelList = new ArrayList<>();
@@ -180,40 +282,52 @@ public class HomeFragment extends Fragment
 
             // read data firestore
             db.collection("Recommended")    // give reference id
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+            {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task)
+                {
+
+                    if (task.isSuccessful())
                     {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task)
+//                        for (QueryDocumentSnapshot document : task.getResult())
+//                        {
+//                            RecommendedModel recommendedModel = document.toObject(RecommendedModel.class);
+//                            recommendedModelList.add(recommendedModel);
+//                            recommendedAdapter.notifyDataSetChanged();
+//                            //Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+//                        }
+
+                        for (QueryDocumentSnapshot document : task.getResult())
                         {
-
-                            if (task.isSuccessful())
-                            {
-                                for (QueryDocumentSnapshot document : task.getResult())
-                                {
-                                    RecommendedModel recommendedModel = document.toObject(RecommendedModel.class);
-                                    recommendedModelList.add(recommendedModel);
-                                    recommendedAdapter.notifyDataSetChanged();
-                                    //Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                            else
-                            {
-                                if (task.getException() != null)
-                                {
-                                    Toast.makeText(getActivity(), "ERROR " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                                else
-                                {
-                                    Toast.makeText(getActivity(), "Unknown error occurred", Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                            RecommendedModel recommendedModel = document.toObject(RecommendedModel.class);
+                            recommendedModelList.add(recommendedModel);
                         }
-                    });
-        }
 
+                        // Shuffle the list after populating it
+                        Collections.shuffle(recommendedModelList);
+
+                        // Update the RecyclerView adapter
+                        recommendedAdapter.notifyDataSetChanged();
+                    }
+                    else
+                    {
+                        if (task.getException() != null)
+                        {
+                            Toast.makeText(getActivity(), "ERROR " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "Unknown error occurred", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            });
+        }
 
        return root;
     }
+
 
 }

@@ -5,15 +5,25 @@ public class NavCategoryModel
     String name;
     String description;
     String img_url;
+    String type;
 
     public NavCategoryModel()
     {
         // Default constructor
     }
-    public NavCategoryModel(String name, String description, String img_url) {
+    public NavCategoryModel(String name, String description, String img_url, String type) {
         this.name = name;
         this.description = description;
         this.img_url = img_url;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getName() {

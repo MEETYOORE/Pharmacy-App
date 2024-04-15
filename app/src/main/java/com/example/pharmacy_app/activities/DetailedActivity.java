@@ -12,8 +12,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import androidx.appcompat.widget.Toolbar; // Correct Toolbar import
 
 
 import com.bumptech.glide.Glide;
+import com.example.pharmacy_app.MainActivity;
 import com.example.pharmacy_app.R;
 import com.example.pharmacy_app.models.ViewAllModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +39,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.SimpleTimeZone;
+import android.view.MenuItem;
+import android.content.Intent;
 
 public class DetailedActivity extends AppCompatActivity
 {
@@ -51,12 +57,16 @@ public class DetailedActivity extends AppCompatActivity
     ImageView addItem, removeItem;
     Toolbar toolbar;
 
+    RatingBar ratingBar;
+
     ViewAllModel viewAllModel = null;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
+
+        startAnimationWithDelay(findViewById(android.R.id.content), R.anim.scale_up_animation, 25);
 
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -112,6 +122,24 @@ public class DetailedActivity extends AppCompatActivity
             price.setText("Price : ₹ " + viewAllModel.getPrice());
 
             totalPrice = viewAllModel.getPrice() * totalQuantity;
+
+            ratingBar = findViewById(R.id.rating_bar);  // set the rating bar
+
+            // Get the rating text from the TextView
+            String ratingText = ((TextView) findViewById(R.id.detailed_rating)).getText().toString();
+
+            // Convert the rating text to float and set it to the RatingBar
+            try
+            {
+                float rating = Float.parseFloat(ratingText);
+                ratingBar.setRating(rating);
+            }
+            catch (NumberFormatException e)
+            {
+                Toast.makeText(this, "Rating Bar Error: " + e, Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+                // Handle parsing error if needed
+            }
         }
 
         else
@@ -126,7 +154,8 @@ public class DetailedActivity extends AppCompatActivity
             {
                 addedToCart();
             }
-        });        addItem.setOnClickListener(new View.OnClickListener()
+        });
+        addItem.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -155,40 +184,101 @@ public class DetailedActivity extends AppCompatActivity
 
 
     }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home)
+        {
+            onBackPressed(); // Call onBackPressed() when home button is clicked
+            return true;
+        }
+        if (id == R.id.action_settings) {
+            // Handle sign out action
+            // For example, navigate to the login activity
+            Intent intent = new Intent(DetailedActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();  // Optionally, finish this activity to prevent going back
+            return true;
+        }
 
+        return super.onOptionsItemSelected(item);
+    }
+
+//    private void addedToCart()
+//    {
+//        String saveCurrentDate, saveCurrentTime;
+//        Calendar calForDate = Calendar.getInstance();
+//
+//        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+//        saveCurrentDate = currentDate.format(calForDate.getTime());
+//
+//        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
+//        saveCurrentTime = currentTime.format(calForDate.getTime());
+//
+//        final HashMap<String, Object> cartMap = new HashMap<>();
+//
+//        // map keys to the values and store the date and time as well
+//        cartMap.put("productName", viewAllModel.getName());
+//        cartMap.put("productPrice", price.getText().toString());
+//        cartMap.put("currentDate", saveCurrentDate);
+//        cartMap.put("currentTime", saveCurrentTime);
+//        cartMap.put("totalQuantity", quantity.getText().toString());
+//        cartMap.put("totalPrice", totalPrice);
+//
+//        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
+//                .collection("CurrentUser").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentReference> task)
+//                    {
+//                        Toast.makeText(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName(), Toast.LENGTH_SHORT).show();
+////                        showCustomToast(DetailedActivity.this, R.drawable.ic_baseline_shopping_cart_24, "Added to Cart: " + viewAllModel.getName());
+////                        showToast(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName());
+////                        showCustomToast("Added To Cart : " + viewAllModel.getName());
+//                    }
+//                });
+//    }
+
+    // check if user logged in
     private void addedToCart()
     {
-        String saveCurrentDate, saveCurrentTime;
-        Calendar calForDate = Calendar.getInstance();
+        if (auth.getCurrentUser() != null)
+        {
+            String saveCurrentDate, saveCurrentTime;
+            Calendar calForDate = Calendar.getInstance();
 
-        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
-        saveCurrentDate = currentDate.format(calForDate.getTime());
+            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+            saveCurrentDate = currentDate.format(calForDate.getTime());
 
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
-        saveCurrentTime = currentTime.format(calForDate.getTime());
+            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
+            saveCurrentTime = currentTime.format(calForDate.getTime());
 
-        final HashMap<String, Object> cartMap = new HashMap<>();
+            final HashMap<String, Object> cartMap = new HashMap<>();
 
-        // map keys to the values and store the date and time as well
-        cartMap.put("productName", viewAllModel.getName());
-        cartMap.put("productPrice", price.getText().toString());
-        cartMap.put("currentDate", saveCurrentDate);
-        cartMap.put("currentTime", saveCurrentTime);
-        cartMap.put("totalQuantity", quantity.getText().toString());
-        cartMap.put("totalPrice", totalPrice);
+            // map keys to the values and store the date and time as well
+            cartMap.put("productName", viewAllModel.getName());
+            cartMap.put("productPrice", price.getText().toString());
+            cartMap.put("currentDate", saveCurrentDate);
+            cartMap.put("currentTime", saveCurrentTime);
+            cartMap.put("totalQuantity", quantity.getText().toString());
+            cartMap.put("totalPrice", totalPrice);
 
-        firestore.collection("AddToCart").document(auth.getCurrentUser().getUid())
-                .collection("CurrentUser").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task)
+            firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
+                    .collection("AddToCart").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>()
                     {
-//                        Toast.makeText(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName(), Toast.LENGTH_SHORT).show();
-//                        showCustomToast(DetailedActivity.this, R.drawable.ic_baseline_shopping_cart_24, "Added to Cart: " + viewAllModel.getName());
-                        showToast(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName());
-//                        showCustomToast("Added To Cart : " + viewAllModel.getName());
-                    }
-                });
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentReference> task)
+                        {
+                            Toast.makeText(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+        else
+        {
+            // User is not logged in, show toast to login
+            Toast.makeText(DetailedActivity.this, "Please login to add items to cart", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     /**
      * ShowToast
@@ -241,5 +331,15 @@ public class DetailedActivity extends AppCompatActivity
 //        toast.setDuration(Toast.LENGTH_SHORT);
 //        toast.show();
 //    }
+
+    private void startAnimationWithDelay(final View view, final int animationResId, final long delayMillis) {
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animation animation = AnimationUtils.loadAnimation(view.getContext(), animationResId);
+                view.startAnimation(animation);
+            }
+        }, delayMillis);
+    }
 
 }

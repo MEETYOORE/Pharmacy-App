@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Name"
-            android:textSize="19sp"
+            android:textSize="21sp"
             android:fontFamily="sans-serif-light"
             android:textStyle="bold"/>
 
@@ -34,8 +34,20 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textSize="20dp"
             android:singleLine="true"
             android:text="Description" />
+
+        <TextView
+            android:id="@+id/rec_type"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:textSize="13dp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="Type" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,9 +64,9 @@
                 android:id="@+id/rec_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.5"
+                android:layout_marginTop="3dp"
                 android:layout_weight="1"
-                android:layout_marginTop="3dp"/>
+                android:text="4.5" />
         </LinearLayout>
 
     </LinearLayout>

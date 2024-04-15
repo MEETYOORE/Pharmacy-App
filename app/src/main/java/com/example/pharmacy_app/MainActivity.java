@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.pharmacy_app.activities.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.database.DatabaseError;
 //import com.google.firebase.database.FirebaseDatabase;
 //import com.google.firebase.database.ValueEventListener;
+
 
 public class MainActivity extends AppCompatActivity
 {
@@ -76,5 +78,22 @@ public class MainActivity extends AppCompatActivity
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)     // handles sign out menu option click
+    {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            // Handle sign out action
+            // For example, navigate to the login activity
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();  // Optionally, finish this activity to prevent going back
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

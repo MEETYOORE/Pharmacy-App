@@ -52,9 +52,6 @@ public class RegistrationActivity extends AppCompatActivity
 //        rootLayout.startAnimation(slideInAnimation);
 
         // Add this line in onCreate of RegistrationActivity after setContentView
-        startAnimationWithDelay(findViewById(android.R.id.content), R.anim.slide_in_left_to_right_animation, 100);
-
-        // Add this line in onCreate of LoginActivity after setContentView
         startAnimationWithDelay(findViewById(android.R.id.content), R.anim.slide_in_right_to_left, 100);
 
 
@@ -97,11 +94,14 @@ public class RegistrationActivity extends AppCompatActivity
 
     }
 
+    /** @noinspection Since15*/
     private void createUser()
     {
-        String userName = name.getText().toString();
-        String userEmail = email.getText().toString();
-        String userPassword = password.getText().toString();
+        // Assuming name, email, and password are EditText fields
+        String userName = name.getText().toString().strip();
+        String userEmail = email.getText().toString().strip();
+        String userPassword = password.getText().toString().strip();
+
         if (TextUtils.isEmpty(userName))
         {
             // stop showing progress bar

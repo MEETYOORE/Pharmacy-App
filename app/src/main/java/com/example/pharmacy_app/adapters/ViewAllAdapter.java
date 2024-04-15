@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -59,6 +60,11 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
         holder.description.setText(list.get(position).getDescription());
         holder.rating.setText(list.get(position).getRating());
         holder.price.setText(list.get(position).getPrice() + "");   // as it is float
+
+        // Set the RatingBar rating
+        float rating = Float.parseFloat(list.get(position).getRating());
+        holder.ratingBar.setRating(rating);
+
         holder.itemView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -81,6 +87,8 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
     {
         ImageView imageView;
         TextView name, description, price, rating;
+        RatingBar ratingBar;
+
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
@@ -91,6 +99,7 @@ public class ViewAllAdapter extends RecyclerView.Adapter<ViewAllAdapter.ViewHold
             description = itemView.findViewById(R.id.view_description);
             price = itemView.findViewById(R.id.view_price);
             rating = itemView.findViewById(R.id.view_rating);
+            ratingBar = itemView.findViewById(R.id.rating_bar_view_all);
         }
     }
 }

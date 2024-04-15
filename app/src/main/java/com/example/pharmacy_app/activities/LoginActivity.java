@@ -48,9 +48,6 @@ public class LoginActivity extends AppCompatActivity
 //        // Apply the animation to the root layout
 //        rootLayout.startAnimation(slideInAnimation);
 
-        // Add this line in onCreate of RegistrationActivity after setContentView
-        startAnimationWithDelay(findViewById(android.R.id.content), R.anim.slide_in_right_to_left, 100);
-
         // Add this line in onCreate of LoginActivity after setContentView
         startAnimationWithDelay(findViewById(android.R.id.content), R.anim.slide_in_left_to_right_animation, 100);
 
@@ -63,6 +60,7 @@ public class LoginActivity extends AppCompatActivity
         password = findViewById(R.id.password_login);
         signUpHere = findViewById(R.id.sign_in_here);
         progressBar.setVisibility(View.GONE);
+
 
         signUpHere.setOnClickListener(new View.OnClickListener()
         {
@@ -91,10 +89,13 @@ public class LoginActivity extends AppCompatActivity
         });
     }
 
+    /** @noinspection Since15*/
     private void logInUser()
     {
-        String userEmail = email.getText().toString();
-        String userPassword = password.getText().toString();
+        // Assuming name, and password are EditText fields
+        String userEmail = email.getText().toString().strip();
+        String userPassword = password.getText().toString().strip();
+
 
         if (TextUtils.isEmpty(userEmail))
         {
