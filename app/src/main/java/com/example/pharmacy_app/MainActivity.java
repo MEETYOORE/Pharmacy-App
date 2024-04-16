@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.pharmacy_app.activities.HomeActivity;
 import com.example.pharmacy_app.activities.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -31,13 +32,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
 {
-
+    private FirebaseAuth mAuth; // Declare FirebaseAuth instance
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance(); // Initialize FirebaseAuth
 
         // Load the animation
         Animation slideInAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_up_animation);
@@ -64,6 +67,8 @@ public class MainActivity extends AppCompatActivity
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        // Check if user is logged in and adjust drawer item visibility
+        adjustDrawerItemsVisibility(navigationView);
     }
 
     @Override
@@ -80,17 +85,29 @@ public class MainActivity extends AppCompatActivity
                 || super.onSupportNavigateUp();
     }
 
+    // if user not logged in hides some options of drawer menu
+    private void adjustDrawerItemsVisibility(NavigationView navigationView) {
+        Menu navMenu = navigationView.getMenu();
+        boolean isLoggedIn = mAuth.getCurrentUser() != null;
+        navMenu.findItem(R.id.nav_profile).setVisible(isLoggedIn);
+        navMenu.findItem(R.id.nav_my_orders).setVisible(isLoggedIn);
+        navMenu.findItem(R.id.nav_my_cart).setVisible(isLoggedIn);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item)     // handles sign out menu option click
     {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            // Handle sign out action
-            // For example, navigate to the login activity
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        if (id == R.id.action_settings)
+        {
+            // Sign out from Firebase Authentication
+            mAuth.signOut();
+
+            // Navigate to the login or home activity
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(intent);
-            finish();  // Optionally, finish this activity to prevent going back
+            finish(); // Optionally, finish this activity to prevent going back
             return true;
         }
 

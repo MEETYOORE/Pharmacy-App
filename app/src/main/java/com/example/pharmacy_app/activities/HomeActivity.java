@@ -10,11 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pharmacy_app.MainActivity;
 import com.example.pharmacy_app.R;
+import com.example.pharmacy_app.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity
 {
-
     ProgressBar progressBar;
     FirebaseAuth auth;
 
@@ -24,16 +24,6 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home);
-
-        auth = FirebaseAuth.getInstance();
-        progressBar = findViewById(R.id.progressbar);
-        progressBar.setVisibility(View.GONE);
-        if (auth.getCurrentUser() != null){
-            progressBar.setVisibility(View.VISIBLE);
-            startActivity(new Intent(HomeActivity.this, MainActivity.class));
-            Toast.makeText(this, "please wait you are already logged in", Toast.LENGTH_SHORT).show();
-            finish();
-        }
     }
 
     public void login(View view)
@@ -43,8 +33,11 @@ public class HomeActivity extends AppCompatActivity
 
     public void registration(View view)
     {
-
         startActivity(new Intent(HomeActivity.this, RegistrationActivity.class));
     }
 
+    public void guest(View view)
+    {
+        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+    }
 }

@@ -3,6 +3,9 @@ package com.example.pharmacy_app.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +20,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +33,7 @@ public class PlacedOrderActivity extends AppCompatActivity
     FirebaseAuth auth;
     FirebaseFirestore firestore;
     Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -55,6 +61,7 @@ public class PlacedOrderActivity extends AppCompatActivity
                 cartMap.put("totalQuantity", model.getTotalQuantity());
                 cartMap.put("totalPrice", model.getTotalPrice());
 
+                // add Cart Items to MyOrder db and clear cart
                 firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
                         .collection("MyOrder").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>()
                         {
@@ -65,6 +72,9 @@ public class PlacedOrderActivity extends AppCompatActivity
                             }
                         });
             }
+
+            // Clear the cart after placing the order
+            clearCart();
         }
 
         button.setOnClickListener(new View.OnClickListener()
@@ -76,5 +86,33 @@ public class PlacedOrderActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+    }
+
+    private void clearCart()
+    {
+        // Delete all items from the "AddToCart" collection
+        firestore.collection("CurrentUser")
+                .document(auth.getCurrentUser().getUid())
+                .collection("AddToCart")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            for (DocumentSnapshot document : task.getResult().getDocuments())
+                            {
+                                document.getReference().delete();
+                            }
+//                            Toast.makeText(PlacedOrderActivity.this, "Cart cleared", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(PlacedOrderActivity.this, "Failed to clear cart", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

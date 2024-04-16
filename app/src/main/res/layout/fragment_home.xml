@@ -47,8 +47,8 @@
                 android:id="@+id/search_rec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
 
 
 
@@ -80,7 +80,8 @@
                     android:fontFamily="sans-serif-light"
                     android:text="View All"
                     android:textColor="@color/purple_200"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 
@@ -120,7 +121,8 @@
                     android:fontFamily="sans-serif-light"
                     android:text="View All"
                     android:textColor="@color/purple_200"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 
@@ -159,7 +161,8 @@
                     android:fontFamily="sans-serif-light"
                     android:text="View All"
                     android:textColor="@color/purple_200"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 
