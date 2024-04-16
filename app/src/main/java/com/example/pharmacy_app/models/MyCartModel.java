@@ -2,6 +2,8 @@ package com.example.pharmacy_app.models;
 
 import java.io.Serializable;
 
+import java.io.Serializable;
+
 public class MyCartModel implements Serializable
 {
     String productName;
@@ -9,7 +11,7 @@ public class MyCartModel implements Serializable
     String currentDate;
     String currentTime;
     String totalQuantity;
-
+    String documentId;
     float totalPrice;
 
     public MyCartModel()
@@ -17,14 +19,22 @@ public class MyCartModel implements Serializable
 
     }
 
-    public MyCartModel(String productName, String productPrice, String currentDate, String currentTime, String totalQuantity, float totalPrice)
-    {
+    public MyCartModel(String productName, String productPrice, String currentDate, String currentTime, String totalQuantity, String documentId, float totalPrice) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.currentDate = currentDate;
         this.currentTime = currentTime;
         this.totalQuantity = totalQuantity;
+        this.documentId = documentId;
         this.totalPrice = totalPrice;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public String getProductName() {

@@ -1,5 +1,6 @@
 package com.example.pharmacy_app.activities;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,7 +34,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -155,6 +158,7 @@ public class DetailedActivity extends AppCompatActivity
                 addedToCart();
             }
         });
+
         addItem.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -238,46 +242,134 @@ public class DetailedActivity extends AppCompatActivity
 //                });
 //    }
 
-    // check if user logged in
-    private void addedToCart()
-    {
-        if (auth.getCurrentUser() != null)
-        {
-            String saveCurrentDate, saveCurrentTime;
-            Calendar calForDate = Calendar.getInstance();
+//    // check if user logged in
+//    private void addedToCart()
+//    {
+//        if (auth.getCurrentUser() != null)
+//        {
+//            String saveCurrentDate, saveCurrentTime;
+//            Calendar calForDate = Calendar.getInstance();
+//
+//            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+//            saveCurrentDate = currentDate.format(calForDate.getTime());
+//
+//            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
+//            saveCurrentTime = currentTime.format(calForDate.getTime());
+//
+//            final HashMap<String, Object> cartMap = new HashMap<>();
+//
+//            // map keys to the values and store the date and time as well
+//            cartMap.put("productName", viewAllModel.getName());
+//            cartMap.put("productPrice", price.getText().toString());
+//            cartMap.put("currentDate", saveCurrentDate);
+//            cartMap.put("currentTime", saveCurrentTime);
+//            cartMap.put("totalQuantity", quantity.getText().toString());
+//            cartMap.put("totalPrice", totalPrice);
+//
+//            firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
+//                    .collection("AddToCart").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>()
+//                    {
+//                        @Override
+//                        public void onComplete(@NonNull Task<DocumentReference> task)
+//                        {
+//                            Toast.makeText(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//        }
+//        else
+//        {
+//            // User is not logged in, show toast to login
+//            Toast.makeText(DetailedActivity.this, "Please login to add items to cart", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
-            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
-            saveCurrentDate = currentDate.format(calForDate.getTime());
-
-            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
-            saveCurrentTime = currentTime.format(calForDate.getTime());
-
-            final HashMap<String, Object> cartMap = new HashMap<>();
-
-            // map keys to the values and store the date and time as well
-            cartMap.put("productName", viewAllModel.getName());
-            cartMap.put("productPrice", price.getText().toString());
-            cartMap.put("currentDate", saveCurrentDate);
-            cartMap.put("currentTime", saveCurrentTime);
-            cartMap.put("totalQuantity", quantity.getText().toString());
-            cartMap.put("totalPrice", totalPrice);
-
+    private void addedToCart() {
+        if (auth.getCurrentUser() != null) {
+            // Check if the item already exists in the cart based on the product name
             firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
-                    .collection("AddToCart").add(cartMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>()
-                    {
+                    .collection("AddToCart")
+                    .whereEqualTo("productName", viewAllModel.getName())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<DocumentReference> task)
-                        {
-                            Toast.makeText(DetailedActivity.this, "Added To Cart : " + viewAllModel.getName(), Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                // Check if the query result contains any documents
+                                if (!task.getResult().isEmpty()) {
+                                    // Item already exists, update its quantity in the database
+                                    DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                                    String documentId = documentSnapshot.getId();
+
+                                    int existingQuantity = Integer.parseInt(documentSnapshot.getString("totalQuantity"));
+                                    int newQuantity = existingQuantity + totalQuantity; // Update quantity
+
+                                    // Update the quantity and total price in the cart
+                                    HashMap<String, Object> updateMap = new HashMap<>();
+                                    updateMap.put("totalQuantity", String.valueOf(newQuantity));
+                                    updateMap.put("totalPrice", viewAllModel.getPrice() * newQuantity);
+
+                                    firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
+                                            .collection("AddToCart").document(documentId)
+                                            .update(updateMap)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> updateTask) {
+                                                    if (updateTask.isSuccessful()) {
+                                                        // Quantity updated successfully
+                                                        Toast.makeText(DetailedActivity.this, "Item quantity updated in cart", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(DetailedActivity.this, "Failed to update item quantity", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                } else {
+                                    // Item doesn't exist, add it as a new item to the cart
+                                    addToCartAsNew();
+                                }
+                            } else {
+                                Toast.makeText(DetailedActivity.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
-        }
-        else
-        {
+        } else {
             // User is not logged in, show toast to login
             Toast.makeText(DetailedActivity.this, "Please login to add items to cart", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // Method to add the item as a new entry in the cart
+    private void addToCartAsNew() {
+        String saveCurrentDate, saveCurrentTime;
+        Calendar calForDate = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+        saveCurrentDate = currentDate.format(calForDate.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss");
+        saveCurrentTime = currentTime.format(calForDate.getTime());
+
+        final HashMap<String, Object> cartMap = new HashMap<>();
+        cartMap.put("productName", viewAllModel.getName());
+        cartMap.put("productPrice", price.getText().toString());
+        cartMap.put("currentDate", saveCurrentDate);
+        cartMap.put("currentTime", saveCurrentTime);
+        cartMap.put("totalQuantity", quantity.getText().toString());
+        cartMap.put("totalPrice", totalPrice);
+
+        firestore.collection("CurrentUser").document(auth.getCurrentUser().getUid())
+                .collection("AddToCart").add(cartMap)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(DetailedActivity.this, "Added To Cart: " + viewAllModel.getName(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(DetailedActivity.this, "Failed to add item to cart", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
 
 
     /**
