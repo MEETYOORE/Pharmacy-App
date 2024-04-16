@@ -1,11 +1,15 @@
 package com.example.pharmacy_app.models;
 
+
 public class UserModel
 {
     String name;
     String email;
     String password;
+    String profileImg;
 
+    public UserModel(){
+    }
     public UserModel(String name, String email, String password)
     {
         this.name = name;
@@ -13,18 +17,35 @@ public class UserModel
         this.password = password;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getEmail()
-    {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
         return email;
     }
-    public String getPassword()
-    {
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getProfileImg() {
+        return profileImg;
+    }
+
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
 }

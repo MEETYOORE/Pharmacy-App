@@ -1,6 +1,8 @@
 package com.example.pharmacy_app.models;
 
-public class RecommendedModel
+import java.io.Serializable;
+
+public class RecommendedModel implements Serializable
 {
     String name;
     String description;

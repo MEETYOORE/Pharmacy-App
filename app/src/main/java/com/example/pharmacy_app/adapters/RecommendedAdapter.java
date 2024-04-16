@@ -15,17 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.pharmacy_app.R;
+import com.example.pharmacy_app.activities.DetailedActivity;
 import com.example.pharmacy_app.activities.ViewAllActivity;
 import com.example.pharmacy_app.models.RecommendedModel;
+import com.example.pharmacy_app.models.ViewAllModel;
 
 import java.util.List;
 
 public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.ViewHolder>
 {
     private Context context;
-    private List<RecommendedModel> list;
+//    private List<RecommendedModel> list;
+    private List<ViewAllModel> list;
 
-    public RecommendedAdapter(Context context, List<RecommendedModel> list)
+//    public RecommendedAdapter(Context context, List<RecommendedModel> list)
+//    {
+//        this.context = context;
+//        this.list = list;
+//    }
+
+    public RecommendedAdapter(Context context, List<ViewAllModel> list)
     {
         this.context = context;
         this.list = list;
@@ -48,16 +57,16 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
         holder.rating.setText(list.get(position).getRating());
         holder.type.setText(list.get(position).getType());
 
-        // on click list category products
+        // on click item
         holder.itemView.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-//                Intent intent = new Intent(context, ViewAllActivity.class);
-//                intent.putExtra("type", list.get(position).getType());
-//                context.startActivity(intent);
-                Toast.makeText(context, "Yet to implement logic", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, DetailedActivity.class);
+                // Pass the clicked item's details as Serializable or Parcelable
+                intent.putExtra("detail", list.get(position));
+                context.startActivity(intent);
             }
         });
 

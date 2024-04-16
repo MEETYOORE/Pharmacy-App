@@ -173,14 +173,16 @@ public class ViewAllActivity extends AppCompatActivity
         }
     }
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
         int id = item.getItemId();
         if (id == android.R.id.home)
         {
             onBackPressed(); // Call onBackPressed() when home button is clicked
             return true;
         }
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             // Handle sign out action
             // For example, navigate to the login activity
             Intent intent = new Intent(ViewAllActivity.this, LoginActivity.class);

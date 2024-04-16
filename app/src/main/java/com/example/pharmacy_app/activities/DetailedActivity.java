@@ -196,7 +196,8 @@ public class DetailedActivity extends AppCompatActivity
             onBackPressed(); // Call onBackPressed() when home button is clicked
             return true;
         }
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             // Handle sign out action
             // For example, navigate to the login activity
             Intent intent = new Intent(DetailedActivity.this, LoginActivity.class);
